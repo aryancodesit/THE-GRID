@@ -64,12 +64,16 @@ THE GRID is a professional-grade Formula 1 race replay and analysis platform. It
     ```
     *The frontend runs on `http://localhost:3000`*
 
-## 🔮 Roadmap
+## 🚀 Scope of Improvements
 
-*   [ ] 3D Track Visualization
-*   [ ] AI-powered Race Strategy Predictions
-*   [ ] Historical Race Archive (1950-2022)
-*   [ ] Mobile App (React Native)
+There is significant potential to expand THE GRID into a comprehensive F1 analytics suite:
+
+*   **📱 Cross-Platform Application**: Wrap the application using **Electron** for a native desktop experience (Windows/macOS/Linux) and port the frontend to **React Native** for iOS and Android mobile apps.
+*   **🏎️ 3D Race Visualization**: Upgrade the 2D track map to a fully immersive 3D environment using **Three.js** or **React Three Fiber**, allowing for realistic elevation changes and camera angles.
+*   **🧠 AI-Powered Strategy Analysis**: Implement machine learning models to predict tyre degradation, pit stop windows, and undercut/overcut probabilities in real-time.
+*   **📜 Historical Archive**: Expand the database to include full race replays and telemetry for all seasons supported by FastF1 (back to 2018) and potentially older historical data.
+*   **📊 Advanced Telemetry**: Add detailed throttle/brake traces, steering angle visualization, and G-force heatmaps for deeper technical analysis.
+*   **👥 Multiplayer Sync**: Allow multiple users to watch a race replay together in perfect sync, enabling remote watch parties and collaborative analysis.
 
 ## 🤝 Contributing
 

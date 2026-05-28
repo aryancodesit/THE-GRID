@@ -17,14 +17,16 @@ THE GRID is a professional-grade Formula 1 race replay and analysis platform. It
 *   **📊 Pro-Level Leaderboard**: Dynamic leaderboard sorted by "Total Race Distance" for accurate race order, even during pit stops.
 *   **🛞 Realistic Tyre Data**: Visualizes actual tyre compounds (Soft, Medium, Hard, Inter, Wet) used by drivers.
 *   **📈 Live Telemetry**: View real-time Speed, Gear, DRS, and Throttle/Brake data for any selected driver.
-*   **🆚 Head-to-Head Mode**: Compare two drivers simultaneously to analyze gaps and performance differences.
-*   **🚩 Dynamic Flag System**: Real-time indicators for Yellow Flags, Red Flags, Safety Car (SC), and Virtual Safety Car (VSC).
-*   **⚡ 2025 Season Ready**: Full support for the upcoming 2025 season, including Sprint weekends.
+*   **🆚 Head-to-Head Mode**: Compare two drivers simultaneously with synchronized gap delta charts and side-by-side strategy tracking.
+*   **⏱️ Race Events Timeline**: Interactive scrubber timeline showing Safety Cars (SC), Virtual Safety Cars (VSC), Red/Yellow Flags, and DRS activations.
+*   **🔗 Deep Linking URLs**: Share a specific race instantly with a direct link (e.g., `/race/2025/Monaco/R`).
+*   **⚡ 2025 Season Ready**: Full backend support for the 2025 season schedule, including Sprint (S) and Sprint Qualifying (SQ) data ingestion.
+*   **💾 Auto-Updating Cache**: Intelligent backend scheduler automatically processes and stores new race data the moment it becomes available.
 
 ## 🛠️ Tech Stack
 
-*   **Frontend**: Next.js (React), TypeScript, Tailwind CSS, HTML5 Canvas
-*   **Backend**: Python, FastAPI, Pandas, NumPy
+*   **Frontend**: Next.js (App Router), React, TypeScript, Tailwind CSS, Recharts, HTML5 Canvas
+*   **Backend**: Python, FastAPI, Pandas, NumPy, Pydantic
 *   **Data Source**: FastF1 (OpenF1 API integration)
 
 ## 🚀 Getting Started
@@ -34,7 +36,18 @@ THE GRID is a professional-grade Formula 1 race replay and analysis platform. It
 *   Node.js (v18+)
 *   Python (v3.10+)
 
-### Installation
+### One-Command Startup (Windows)
+
+The absolute easiest way to run the project is using the included `start.bat` file, which automatically handles port cleanup and boots both the frontend and backend simultaneously.
+
+```bash
+# Just double-click start.bat or run:
+start.bat
+```
+
+### Manual Installation
+
+If you prefer to start them manually:
 
 1.  **Clone the repository**
     ```bash
@@ -44,18 +57,18 @@ THE GRID is a professional-grade Formula 1 race replay and analysis platform. It
 
 2.  **Backend Setup**
     ```bash
-    # Install Python dependencies
-    pip install fastf1 pandas numpy uvicorn fastapi
+    cd backend
+    # Install dependencies from requirements
+    pip install -r requirements.txt
     
     # Run the backend server
-    python backend/main.py
+    python main.py
     ```
     *The backend runs on `http://localhost:8000`*
 
 3.  **Frontend Setup**
     ```bash
     cd frontend
-    
     # Install Node dependencies
     npm install
     

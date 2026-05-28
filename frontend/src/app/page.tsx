@@ -4,6 +4,7 @@ import TUIDashboard from '@/components/TUIDashboard';
 import PredictionPanel from '@/components/PredictionPanel';
 import VisualReplay from '@/components/VisualReplay';
 import DriverComparison from '@/components/DriverComparison';
+import FavoriteDriver from '@/components/FavoriteDriver';
 
 export default function Home() {
   const [year, setYear] = useState(2026);
@@ -38,9 +39,7 @@ export default function Home() {
         {activeTab === 'COMPARISON' ? (
             <DriverComparison />
         ) : activeTab === 'FAVORITE' ? (
-            <div className="bg-[#111] p-12 text-center border border-white/5 rounded text-gray-500 font-mono">
-                FAVORITE DRIVER MODULE WILL BE LOADED HERE
-            </div>
+            <FavoriteDriver />
         ) : (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Left Column: Official Results or Telemetry */}

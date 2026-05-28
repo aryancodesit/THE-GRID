@@ -1,5 +1,6 @@
-fastapi
-uvicorn
-fastf1
-pandas
-numpy
+fastf1>=3.6.0
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pandas>=2.2.0
+numpy>=1.26.0
+python-multipart>=0.0.9

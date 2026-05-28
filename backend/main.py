@@ -23,6 +23,7 @@ import json
 import logging
 import socket
 import traceback
+import asyncio
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -164,6 +165,30 @@ async def get_schedule(year: int):
             })
         return {"year": year, "races": races}
     except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
+@app.post("/api/refresh/{year}/{race}/{session}")
+async def force_refresh(year: int, race: str, session: str):
+    """
+    Manually trigger data processing for a session and overwrite the cache.
+    Useful for getting race data immediately after it finishes instead of waiting for the 6h background job.
+    """
+    cache_file = _cache_path(year, race, session)
+    try:
+        # Check if FastF1 has it available yet
+        if not check_session_available(year, race, session):
+            raise HTTPException(status_code=404, detail="Data not yet available on OpenF1")
+            
+        data = await asyncio.to_thread(process_session, year, race, session)
+        with cache_file.open("w", encoding="utf-8") as fh:
+            json.dump(data, fh, ensure_ascii=False)
+        logger.info("Manually refreshed cache for %s", cache_file)
+        return {"status": "success", "message": f"Successfully refreshed data for {year} {race} {session}"}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Error manual refresh %s %s %s:\n%s", year, race, session, traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(exc))
 
 

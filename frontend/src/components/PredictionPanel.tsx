@@ -18,17 +18,15 @@ export default function PredictionPanel({ year = 2024, round = 1 }: { year?: num
 
     useEffect(() => {
         setLoading(true);
-        import('axios').then(axios => {
-            axios.default.get(`http://127.0.0.1:8000/api/predict/${year}/${round}`)
-                .then(res => {
-                    setPrediction(res.data);
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error(err);
-                    setLoading(false);
-                });
-        });
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/predict/${year}/${round}`)
+            .then(res => {
+                setPrediction(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
     }, [year, round]);
 
     if (loading) return <div className="bg-[#111] border border-white/5 p-6 animate-pulse h-64 rounded-xl"></div>;

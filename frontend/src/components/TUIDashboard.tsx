@@ -14,27 +14,19 @@ export default function TUIDashboard({ year = 2026, round = 1 }: { year?: number
     }, []);
 
     useEffect(() => {
-        // Connect to SSE stream for live updates using dynamic props
-        const eventSource = new EventSource(`http://127.0.0.1:8000/api/stream/timing/${year}/${round}`);
-        
-        eventSource.onmessage = (event) => {
+        const fetchData = async () => {
             try {
-                const data = JSON.parse(event.data);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/timing/${year}/${round}`);
+                const data = await res.json();
                 setDrivers(data);
                 setLoading(false);
             } catch (err) {
-                console.error("Failed to parse stream data:", err);
+                console.error(err);
             }
         };
-
-        eventSource.onerror = (err) => {
-            console.error("SSE Connection Error:", err);
-            eventSource.close();
-        };
-
-        return () => {
-            eventSource.close();
-        };
+        fetchData();
+        const interval = setInterval(fetchData, 15000);
+        return () => clearInterval(interval);
     }, [year, round]);
 
     return (

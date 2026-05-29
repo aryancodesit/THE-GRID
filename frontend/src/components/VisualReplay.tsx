@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Activity, Loader2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -9,17 +10,15 @@ export default function VisualReplay({ year = 2024, round = 1 }: { year?: number
 
     useEffect(() => {
         setLoading(true);
-        import('axios').then(axios => {
-            axios.default.get(`http://127.0.0.1:8000/api/telemetry/${year}/${round}?driver1=VER&driver2=PER`)
-                .then(res => {
-                    setPayload(res.data);
-                    setLoading(false);
-                })
-                .catch(err => {
-                    console.error("Failed to fetch telemetry:", err);
-                    setLoading(false);
-                });
-        });
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/telemetry/${year}/${round}?driver1=VER&driver2=PER`)
+            .then(res => {
+                setPayload(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to fetch telemetry:", err);
+                setLoading(false);
+            });
     }, [year, round]);
 
     if (loading || !payload) {
